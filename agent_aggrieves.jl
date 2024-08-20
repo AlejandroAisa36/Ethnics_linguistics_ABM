@@ -32,6 +32,7 @@ end
 
 sample_ethnic(Ethiopia) # We sample one language 
 
+
 function interaction!(x::ethnic, y::me_country)
     e = x.e # Selects one ethnic agent.  Later would be to pick a random agent. 
     s = sample_ethnic(y) # Elects one ethnicity 
@@ -39,7 +40,7 @@ function interaction!(x::ethnic, y::me_country)
     if e == "A" && s == "L1"
         x.g = x.g + x.gr
       elseif e == "A" && s == "L2"
-        x.g = x.g = x.gr
+        x.g = x.g - x.gr
       elseif e == "a" && s == "L1"
         x.g = x.g - x.gr
       elseif e == "a" && s == "L2"
