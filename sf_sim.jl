@@ -45,12 +45,23 @@ end
 
 
 function sf_step!(agent::sf_ethnic, model)
+
+    target_ethnicity = agent.e 
+    threshold = 0.5
+
     try
       interlocutor = random_nearby_agent(agent, model)
       sf_communication!(interlocutor, agent)
     catch
+    end 
+
+    if agent.g > 0.8 
+      agent.m = 1
     end
 end
+
+
+
 
 sf_model = StandardABM(sf_ethnic,
                     GraphSpace(static_scale_free(100, 200, 2)),
@@ -66,5 +77,5 @@ end
 
 data_sf, _ = run!(sf_model, 1000; adata = [:g, :e, :m])
 
-plot(data_sf.time, data_sf.m, group=data_sf.id)
+plot(data_sf.time, data_sf.g, group=data_sf.id)
 
