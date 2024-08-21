@@ -7,14 +7,14 @@ using Statistics
 using DataFrames
 
 # We create ethnic agents. 
-@agent struct sn_ethnic(GraphAgent)
+@agent struct er_ethnic(GraphAgent)
     e::String # probability of using a language (Substitutes P1). The moment is ethnicity. 
     g::Float64 # Level of grievance (Substitutes p in theory of Henri).
     gr::Float64 # Grievance rate; how much unsuccesful communication matters. (Substitutes gamma).
 end
 
 
-function sn_communication!(x::sn_ethnic, y::sn_ethnic)
+function er_communication!(x::er_ethnic, y::er_ethnic)
     e = x.e # Ethnicity of first random agent
     s = y.e # Ethnicty of second random agent
 
@@ -39,28 +39,27 @@ function sn_communication!(x::sn_ethnic, y::sn_ethnic)
 end
 
 
-function sn_step!(agent::sn_ethnic, model)
+function er_step!(agent::er_ethnic, model)
   try
     interlocutor = random_nearby_agent(agent, model)
-    sn_communication!(interlocutor, agent)
+    er_communication!(interlocutor, agent)
   catch
   end
 end
 
-sn_model = StandardABM(sn_ethnic,
+er_model = StandardABM(er_ethnic,
                     GraphSpace(erdos_renyi(100, 0.5)),
-                    agent_step! = sn_step!)
+                    agent_step! = er_step!)
 
 for i in 1:100
-  add_agent_single!(sn_model; 
+  add_agent_single!(er_model; 
                       e = sample(["A", "a"], Weights([0.7, 0.3])),
                       g = 0.2,
                       gr = 0.001)
 end
 
-nagents(sn_model)
+nagents(er_model)
 
+data_er, _ = run!(er_model, 1000; adata = [:g, :e])
 
-data, _ = run!(sn_model, 1000; adata = [:g, :e])
-
-plot(data.time, data.g, group=data.id)
+plot(data_er.time, data_er.g, group=data_er.id)
