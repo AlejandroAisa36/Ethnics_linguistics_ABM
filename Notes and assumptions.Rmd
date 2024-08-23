@@ -1,0 +1,28 @@
+---
+title: "Notes and assumptions"
+author: "Alejandro Aisa"
+date: "2024-08-23"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ethnicty 
+
+- For the moment 70% of main ethnicity and 30% of ethnic minority
+
+- Potential 50%-50%. 
+
+- Random distribution within social network: potentiality to create segregation. 
+
+- Ethnicity is synonims with language. Only thing that differentiates is language. 
+
+## Model 
+
+- At each iteration, two random agents interact. Successful communication would determine the level of grievance. 
+
+- Then, sourroudings would determine whether someone would mobilize 
+
+- The degree of each node influences the possibility of mobilizing. 

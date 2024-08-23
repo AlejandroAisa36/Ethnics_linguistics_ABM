@@ -3,6 +3,7 @@ using Plots
 using Agents
 using Graphs
 using StatsBase
+using GraphPlot
 using Statistics
 using DataFrames
 
@@ -17,50 +18,51 @@ function sf_communication!(x::sf_ethnic, y::sf_ethnic)
     e = x.e # Ethnicity of first random agent
     s = y.e # Ethnicty of second random agent
 
+    x.g = clamp(x.g, 0.001, 0.999)
+    y.g = clamp(y.g, 0.001, 0.999)
+
     if e == "A" && s == "a"  
-        x.g = x.g + x.gr
-        y.g = y.g + y.gr
+        x.g = x.g + x.g * x.gr
+        y.g = y.g + y.gr * y.gr
     elseif e == "A" && s == "A" 
-        x.g = x.g - x.gr
-        y.g = y.g - y.gr
+        x.g = x.g - x.gr * x.gr
+        y.g = y.g - y.gr * y.gr
     elseif e == "a" && s == "A"  
-        x.g = x.g + x.gr
-        y.g = y.g + y.gr
+        x.g = x.g + x.gr * x.gr
+        y.g = y.g + y.gr * y.gr
     elseif e == "a" && s == "a"  
-        x.g = x.g - x.gr
-        y.g = y.g - y.gr
+        x.g = x.g - x.gr * x.gr
+        y.g = y.g - y.gr * y.gr
+    end
+  
+end
+
+function sf_radicalization!(x::sf_ethnic, y::sf_ethnic)
+
+    if (x.g > 0.6 && x.e != y.e) || x.g > 0.8
+        x.m = 1
+    end
+
+    if (x.g < 0.6 && x.e == y.e) || x.g < 0.2
+        x.m = 0
     end
     
-    x.g = clamp(x.g, 0, 1)
-    y.g = clamp(y.g, 0, 1)
-
- if x.g >= 0.8
-    x.m = 1
- end 
-
- if y.g >= 0.8
-    y.m = 1
- end 
 end
 
 
 function sf_step!(agent::sf_ethnic, model)
-
-    target_ethnicity = agent.e 
-    threshold = 0.5
-
     try
-      interlocutor = random_nearby_agent(agent, model)
-      sf_communication!(interlocutor, agent)
+      resident = random_nearby_agent(agent, model)
+      sf_communication!(resident, agent)
     catch
     end 
 
-    if agent.g > 0.8 
-      agent.m = 1
+    try
+        random_resident = random_nearby_agent(agent, model)
+        sf_radicalization!(agent, random_resident)
+    catch
     end
 end
-
-
 
 
 sf_model = StandardABM(sf_ethnic,
@@ -75,7 +77,7 @@ for i in 1:100
                       m = 0)
 end
 
-data_sf, _ = run!(sf_model, 1000; adata = [:g, :e, :m])
+sf_df, _ = run!(sf_model, 100; adata = [:g, :e, :m])
 
-plot(data_sf.time, data_sf.g, group=data_sf.id)
+plot(sf_df.time, sf_df.g, group=sf_df.id)
 

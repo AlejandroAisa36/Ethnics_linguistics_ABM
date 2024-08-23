@@ -1,7 +1,7 @@
 using StatsBase
 # import Random No lo necesito de momento 
 
-mutable struct ethnic 
+mutable struct ethnic
     e::String # probability of using a language (Substitutes P1)
     g::Float64 # Level of grievance (Substitutes p in theory of Henri)
     gr::Float64 # Grievance rate; how much unsuccesful communication matters. 
