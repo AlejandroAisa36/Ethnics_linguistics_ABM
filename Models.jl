@@ -23,8 +23,8 @@ for i in 1:100 # We populate the network
         add_agent_single!(model_1;
                             e = sample(["A", "a"], Weights([0.7, 0.3])), # 70% A, 30% a
                             b = 0, # All non-bilingual
-                            g = 0.2,
-                            gr = 0.05, # Bad communication matters 5%
+                            g = 0.5,
+                            gr = 0.1, # Bad communication matters 10%
                             m = 0)
 end 
 
@@ -40,9 +40,9 @@ model_2 = StandardABM(
 for i in 1:100
   add_agent_single!(model_2; 
                       e = sample(["A", "a"], Weights([0.7, 0.3])),
-                      b = sample([0, 1], Weights([0.75, 0.25])), 
-                      g = 0.2,
-                      gr = 0.05, 
+                      b = sample([0, 1], Weights([0.75, 0.25])), # 25% of bilingual agents
+                      g = 0.5,
+                      gr = 0.1, 
                       m = 0)
 end
 
@@ -58,9 +58,9 @@ model_3 = StandardABM(
 for i in 1:100
   add_agent_single!(model_3; 
                       e = sample(["A", "a"], Weights([0.7, 0.3])),
-                      b = sample([0, 1], Weights([0.5, 0.5])), 
-                      g = 0.2,
-                      gr = 0.05, 
+                      b = sample([0, 1], Weights([0.5, 0.5])), # 50% of bilingual agents
+                      g = 0.5,
+                      gr = 0.1, 
                       m = 0)
 end
 
@@ -74,9 +74,9 @@ model_4 = StandardABM(
 for i in 1:100
         add_agent_single!(model_4;
                             e = sample(["A", "a"], Weights([0.7, 0.3])),
-                            b = 0, 
-                            g = 0.2,
-                            gr = 0.005, # Bad communication matters 5%
+                            b = 0, # Starts with no bilingual agents
+                            g = 0.5,
+                            gr = 0.1, # Bad communication matters 5%
                             m = 0)
 end
 
@@ -112,7 +112,6 @@ plot(
     group=df_model1.id, 
     xaxis = "Time", 
     yaxis = "Grievance",
-    title = "Figure 1: Grievance of agents with no bilingualism",
     legend = false)
 
 plot(
@@ -121,7 +120,6 @@ plot(
     group=df_model2.id,
     xaxis = "Time", 
     yaxis = "Grievance",
-    title = "Figure 2: Grievance of agents with 25% bilingualism",
     legend = false)
 
 plot(
@@ -130,7 +128,6 @@ plot(
     group=df_model3.id, 
     xaxis = "Time", 
     yaxis = "Grievance",
-    title = "Figure 3: Grievance of agents with 50% bilingualism",
     legend = false)
 
 plot(
@@ -139,7 +136,6 @@ plot(
     group=df_model4.id, 
     xaxis = "Time", 
     yaxis = "Grievance",
-    title = "Figure 4: Grievance of agents with progressive bilingualism",
     legend = false)
 
 # Grouped by ethnicity
@@ -158,13 +154,33 @@ CSV.write("data/grouped_4.csv", grouped_4)
 
 # Plotted by ethnicity
 
-plot(grouped_1.time, grouped_1.g_mean, group=grouped_1.e)
+plot(
+    grouped_1.time, 
+    grouped_1.g_mean, 
+    group=grouped_1.e, 
+    xaxis = "Time", 
+    yaxis = "Average grievance per ethnic")
 
-plot(grouped_2.time, grouped_2.g_mean, group=grouped_2.e)
+plot(
+    grouped_2.time, 
+    grouped_2.g_mean,
+    group=grouped_2.e, 
+    xaxis = "Time", 
+    yaxis = "Average grievance per ethnic")
 
-plot(grouped_3.time, grouped_3.g_mean, group=grouped_3.e)
+plot(
+    grouped_3.time, 
+    grouped_3.g_mean, 
+    group=grouped_3.e, 
+    xaxis = "Time", 
+    yaxis = "Average grievance per ethnic")
 
-plot(grouped_4.time, grouped_4.g_mean, group=grouped_4.e)
+plot(
+    grouped_4.time, 
+    grouped_4.g_mean, 
+    group=grouped_4.e, 
+    xaxis = "Time", 
+    yaxis = "Average grievance per ethnic")
 
 
 

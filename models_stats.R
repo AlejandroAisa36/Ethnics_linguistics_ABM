@@ -1,6 +1,7 @@
 library(readr)
 library(tidyverse)
 
+# Model 1: No bilingualism 
 df_model1 <- read_csv("data/df_model1.csv") |> 
   transmute(
     agent_id = id, 
@@ -11,6 +12,7 @@ df_model1 <- read_csv("data/df_model1.csv") |>
     mobilized = m, 
   )
 
+# Model 2: 25% bilingualism
 df_model2 <- read_csv("data/df_model2.csv")|> 
   transmute(
     agent_id = id, 
@@ -21,6 +23,7 @@ df_model2 <- read_csv("data/df_model2.csv")|>
     mobilized = m, 
   )
 
+# Model 3: 50% bilingualism
 df_model3 <- read_csv("data/df_model3.csv")|> 
   transmute(
     agent_id = id, 
@@ -31,6 +34,7 @@ df_model3 <- read_csv("data/df_model3.csv")|>
     mobilized = m, 
   )
 
+# Model 4: Implementation of bilingualism policy
 df_model4 <- read_csv("data/df_model4.csv")|> 
   transmute(
     agent_id = id, 
@@ -44,6 +48,9 @@ df_model4 <- read_csv("data/df_model4.csv")|>
 sysfonts::font_add_google("Gideon Roman", family = "gideon roman")
 showtext::showtext_auto() 
 
+
+# Number of mobilized agents in model 1
+
 mobilized_1 = df_model1 |> 
   group_by(ethnicity, iteration) |> 
   summarise(
@@ -55,10 +62,7 @@ pm1 <-  mobilized_1 |>
   ylim(0, 25) +
   theme_classic() +
   labs(
-    title = "Figure 5: Number of mobilized agents: No bilingualism",
-    subtitle = 
-      "Evolution in time of the count number of mobilized indivuals, aggregated by ethnicity",
-    x = "Iteration", 
+    x = "Time", 
     y = "Number of agents")+ 
   theme(
     plot.title = element_text(face = "bold", 
@@ -78,6 +82,7 @@ pm1 <-  mobilized_1 |>
 
 pm1
 
+# Number of mobilized agents in model 2
 
 mobilized_2 = df_model2 |> 
   group_by(ethnicity, iteration) |> 
@@ -90,10 +95,7 @@ pm2 <- mobilized_2 |>
   ylim(0, 25) + 
   theme_classic()+
   labs(
-    title = "Figure 6: Number of mobilized agents: 25% bilingualism",
-    subtitle = 
-      "Evolution in time of the count number of mobilized indivuals, aggregated by ethnicity",
-    x = "Iteration", 
+    x = "time", 
     y = "Number of agents")+ 
   theme(
     plot.title = element_text(face = "bold", 
@@ -113,6 +115,9 @@ pm2 <- mobilized_2 |>
 
 pm2
 
+
+# Number of mobilized agents in model 3
+
 mobilized_3 = df_model3 |> 
   group_by(ethnicity, iteration) |> 
   summarise(
@@ -124,10 +129,7 @@ pm3 <- mobilized_3 |>
   ylim(0, 25)+
   theme_classic()+
   labs(
-    title = "Figure 7: Number of mobilized agents: 25% bilingualism",
-    subtitle = 
-      "Evolution in time of the count number of mobilized indivuals, aggregated by ethnicity",
-    x = "Iteration", 
+    x = "Time", 
     y = "Number of agents")+ 
   theme(
     plot.title = element_text(face = "bold", 
@@ -147,6 +149,9 @@ pm3 <- mobilized_3 |>
 
 pm3
 
+
+# Number of mobilized agents in model 4
+
 mobilized_4 = df_model4 |> 
   group_by(ethnicity, iteration) |> 
   summarise(
@@ -160,10 +165,7 @@ pm4 <- mobilized_4 |>
   ylim(0, 25)+ 
   theme_classic() +
   labs(
-    title = "Figure 8: Number of mobilize agents: progressive bilingualism",
-    subtitle = 
-      "Evolution in time of the count number of mobilized indivuals, aggregated by ethnicity",
-    x = "Iteration", 
+    x = "Time", 
     y = "Number of agents")+ 
   theme(
     plot.title = element_text(face = "bold", 
