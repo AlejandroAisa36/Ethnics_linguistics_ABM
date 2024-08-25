@@ -96,30 +96,50 @@ CSV.write("data/df_model3.csv", df_model3)
 df_model4, _  = run!(model_4, 300; adata = [:g, :e, :m, :b]) 
 CSV.write("data/df_model4.csv", df_model4)
 
+
+# Importing the dataframes
+
+df_model1 = DataFrame(CSV.read("data/df_model1.csv", DataFrame)) 
+df_model2 = DataFrame(CSV.read("data/df_model2.csv", DataFrame)) 
+df_model3 = DataFrame(CSV.read("data/df_model3.csv", DataFrame)) 
+df_model4 = DataFrame(CSV.read("data/df_model4.csv", DataFrame)) 
+
 # Plotting the grievance 
 
 plot(
     df_model1.time, 
     df_model1.g, 
     group=df_model1.id, 
+    xaxis = "Time", 
+    yaxis = "Grievance",
+    title = "Figure 1: Grievance of agents with no bilingualism",
     legend = false)
 
 plot(
     df_model2.time, 
     df_model2.g, 
     group=df_model2.id,
+    xaxis = "Time", 
+    yaxis = "Grievance",
+    title = "Figure 2: Grievance of agents with 25% bilingualism",
     legend = false)
 
 plot(
     df_model3.time, 
     df_model3.g, 
     group=df_model3.id, 
+    xaxis = "Time", 
+    yaxis = "Grievance",
+    title = "Figure 3: Grievance of agents with 50% bilingualism",
     legend = false)
 
 plot(
     df_model4.time, 
     df_model4.g, 
     group=df_model4.id, 
+    xaxis = "Time", 
+    yaxis = "Grievance",
+    title = "Figure 4: Grievance of agents with progressive bilingualism",
     legend = false)
 
 # Grouped by ethnicity

@@ -52,7 +52,7 @@ mobilized_1 = df_model1 |>
 pm1 <-  mobilized_1 |> 
   ggplot(aes(x = iteration, y = count, colour = ethnicity)) +
   geom_line() +
-  ylim(0, 50) +
+  ylim(0, 25) +
   theme_classic() +
   labs(
     title = "Figure 5: Number of mobilized agents: No bilingualism",
@@ -67,7 +67,10 @@ pm1 <-  mobilized_1 |>
                               family = "gideon roman"), 
     plot.subtitle = element_text(size = 8, 
                                  hjust = 0.5, 
-                                 family = "gideon roman"),
+                                 family = "gideon roman"), 
+    legend.position = "right",  
+    legend.box = "vertical",     
+    legend.background = element_rect(color = "black", size = 0.5),
     legend.title = element_text(size = 9, family = "gideon roman"), 
     legend.text = element_text(size = 9, family = "gideon roman"), 
     axis.title.x = element_text(size = 9, family = "gideon roman"), 
@@ -84,7 +87,7 @@ mobilized_2 = df_model2 |>
 pm2 <- mobilized_2 |> 
   ggplot(aes(x = iteration, y = count, colour = ethnicity)) +
   geom_line() +
-  ylim(0, 50) + 
+  ylim(0, 25) + 
   theme_classic()+
   labs(
     title = "Figure 6: Number of mobilized agents: 25% bilingualism",
@@ -99,7 +102,10 @@ pm2 <- mobilized_2 |>
                               family = "gideon roman"), 
     plot.subtitle = element_text(size = 8, 
                                  hjust = 0.5, 
-                                 family = "gideon roman"),
+                                 family = "gideon roman"), 
+    legend.position = "right",  
+    legend.box = "vertical",     
+    legend.background = element_rect(color = "black", size = 0.5),
     legend.title = element_text(size = 9, family = "gideon roman"), 
     legend.text = element_text(size = 9, family = "gideon roman"), 
     axis.title.x = element_text(size = 9, family = "gideon roman"), 
@@ -115,10 +121,10 @@ mobilized_3 = df_model3 |>
 pm3 <- mobilized_3 |> 
   ggplot(aes(x = iteration, y = count, colour = ethnicity)) +
   geom_line() +
-  ylim(0, 50)+
+  ylim(0, 25)+
   theme_classic()+
   labs(
-    title = "Figure 7: Number of mobilized agents: 50% bilingualism",
+    title = "Figure 7: Number of mobilized agents: 25% bilingualism",
     subtitle = 
       "Evolution in time of the count number of mobilized indivuals, aggregated by ethnicity",
     x = "Iteration", 
@@ -130,7 +136,10 @@ pm3 <- mobilized_3 |>
                               family = "gideon roman"), 
     plot.subtitle = element_text(size = 8, 
                                  hjust = 0.5, 
-                                 family = "gideon roman"),
+                                 family = "gideon roman"), 
+    legend.position = "right",  
+    legend.box = "vertical",     
+    legend.background = element_rect(color = "black", size = 0.5),
     legend.title = element_text(size = 9, family = "gideon roman"), 
     legend.text = element_text(size = 9, family = "gideon roman"), 
     axis.title.x = element_text(size = 9, family = "gideon roman"), 
@@ -148,7 +157,7 @@ pm4 <- mobilized_4 |>
   geom_line() +
   geom_vline(xintercept = mobilized_4$iteration[10], linetype = 4)+
   geom_vline(xintercept = mobilized_4$iteration[100], linetype = 4)+
-  ylim(0, 50)+ 
+  ylim(0, 25)+ 
   theme_classic() +
   labs(
     title = "Figure 8: Number of mobilize agents: progressive bilingualism",
@@ -166,6 +175,9 @@ pm4 <- mobilized_4 |>
                                  family = "gideon roman"),
     legend.title = element_text(size = 9, family = "gideon roman"), 
     legend.text = element_text(size = 9, family = "gideon roman"), 
+    legend.position = "right",  
+    legend.box = "vertical",     
+    legend.background = element_rect(color = "black", size = 0.5),
     axis.title.x = element_text(size = 9, family = "gideon roman"), 
     axis.title.y = element_text(size = 9, family = "gideon roman"))
 pm4

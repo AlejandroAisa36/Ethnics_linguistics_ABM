@@ -28,7 +28,7 @@ function sf_communication!(x::sf_ethnic, y::sf_ethnic)
     # Different ethnicity, unsuccesful communication
     if (e == "A" && s == "a") && (Le == 0 || Ls == 0) 
         x.g = x.g + (x.g * x.gr)
-        y.g = y.g + y.gr
+        y.g = y.g + (y.gr * y.gr)
 
     # Different ethnicity, succesfull communication
     elseif (e == "A" && s == "a") && (Le == 1 || Ls == 0)
@@ -67,8 +67,9 @@ function sf_communication!(x::sf_ethnic, y::sf_ethnic)
         x.g = x.g - x.gr
         y.g = y.g - y.gr
     end
-
-    x.g = clamp(x.g, 0, 1)
+    
+    # Coerce function so grievance can only be between 0 and 1
+    x.g = clamp(x.g, 0, 1) 
     y.g = clamp(y.g, 0, 1)
   
 end
