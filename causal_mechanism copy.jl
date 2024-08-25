@@ -120,7 +120,7 @@ function sf_step_prog!(agent::sf_ethnic, model)
         if step < 10
             agent.b = 0
             resident.b = 0
-        elseif step >= 10 && step < 100
+        elseif step >= 10 && step <= 100
             agent.b = sample([0, 1], Weights([0.75, 0.25]))
             resident.b = sample([0, 1], Weights([0.75, 0.25]))
         elseif step > 100 && agent.b == 0
